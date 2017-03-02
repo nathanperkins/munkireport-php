@@ -26,6 +26,7 @@ new Security_model;
 		        <th data-i18n="filevault.users" data-colname='filevault_status.filevault_users'></th>
 		        <th data-i18n="type"data-colname='machine.machine_name'></th>
 		        <th data-i18n="storage.encryption_status" data-colname='diskreport.CoreStorageEncrypted'></th>
+                <th data-i18n="filevault.recoverykey" data-colname='filevault_escrow.recoverykey'></th>
 		        <th data-i18n="security.gatekeeper" data-colname='security.gatekeeper'></th>
 		        <th data-i18n="security.sip" data-colname='security.sip'></th>
 		        <th data-i18n="security.ssh_users" data-colname='security.ssh_users'></th>
@@ -125,9 +126,23 @@ new Security_model;
                     }
                     return '<span class="label label-danger">'+i18n.t('unencrypted')+'</span>';
                 });
+
+                var escrow = $('td:eq(7)', nRow).html();
+                 $('td:eq(7)', nRow).html(function(){
+                    if( enc == 0 ){
+                        return '<span class="label label-warning">'+i18n.t('N/A')+'</span>';
+                    }
+                    if( escrow == '' ){
+                          return '<span class="label label-danger">'+i18n.t('Missing')+'</span>';
+                    } else if( escrow.length == 29 ){
+                         return '<span class="label label-success">'+i18n.t('Valid')+'</span>';
+                    } else {
+                      return '<span class="label label-danger">'+i18n.t('Invalid')+'</span>';
+                    }
+                });
                 
-                var gk = $('td:eq(7)', nRow).html();
-                $('td:eq(7)', nRow).html(function(){
+                var gk = $('td:eq(8)', nRow).html();
+                $('td:eq(8)', nRow).html(function(){
                   if( gk == 'Active'){
                         return '<span class="label label-success">'+i18n.t('enabled')+'</span>';
                     } else if( gk == 'Not Supported'){
@@ -137,8 +152,8 @@ new Security_model;
                     }
                 });
                 
-                var sip = $('td:eq(8)', nRow).html();
-                $('td:eq(8)', nRow).html(function(){
+                var sip = $('td:eq(9)', nRow).html();
+                $('td:eq(9)', nRow).html(function(){
                     if( sip == 'Active'){
                         return '<span class="label label-success">'+i18n.t('enabled')+'</span>';
                     } else if( sip == 'Not Supported'){
@@ -148,8 +163,8 @@ new Security_model;
                     }
                 });
                 
-                 var firmwarepw = $('td:eq(11)', nRow).html();
-                 $('td:eq(11)', nRow).html(function(){
+                 var firmwarepw = $('td:eq(12)', nRow).html();
+                 $('td:eq(12)', nRow).html(function(){
                      if( firmwarepw == 'Yes'){
                          return '<span class="label label-success">'+i18n.t('enabled')+'</span>';
                      }
